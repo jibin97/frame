@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <style>
+        body {
+            background: #ffcc0f;
+        }
+    </style>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.css">
+    <title>merge</title>
+</head>
+
+<body class="text-center">
+    <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+        <header class="masthead mb-auto">
+            <div class="inner">
+                <h3 class="masthead-brand">Abhayam</h3>
+                <nav class="nav nav-masthead justify-content-center">
+                    <p>Payasam Challenge</p>
+                </nav>
+            </div>
+        </header>
+
+        <main role="main" class="inner cover row justify-content-center">
+            <h4 class="cover-heading">Frame Your profile.</h4>
+
+            <div style="position: relative;">
+                <p id="clickhere"
+                    style=" position: absolute;top: 50%;left: 50%;transform: translate(-50%, -50%);z-index: -1;">
+                    click here
+                </p>
+                <img id="frame" alt="frame" src="1635082333865.png" height="350" width="350"
+                    onclick="document.getElementById('file1').click()" style="max-width: 350px;max-height: 350px;">
+            </div>
+            <input type="file" accept="image/*" name="file1" id="file1" style="display: none;">
+            <div id="hidable">
+                <canvas id="canvas" style="max-width: 350px;max-height: 350px;">
+                    Your browser does not support the HTML5 canvas element.
+                </canvas>
+            </div>
+
+            <p class="lead mt-4">
+                <button class="btn btn-lg btn-dark" id="btnCrop">Generate</button>
+                <a class="btn btn-lg btn-success" id="download" style="display: none;">Download</a>
+                <!-- <button class="btn btn-lg btn-info" id="btnRestore">Reset</button> -->
+            </p>
+        </main>
+        <div>
+
+        </div>
+        <footer class="mastfoot mt-auto">
+            <div class="inner">
+                <p>caption</p>
+            </div>
+        </footer>
+    </div>
+
+</body>
+<script src="https://unpkg.com/merge-images"> </script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+    crossorigin="anonymous"></script>
+<script>
+    var imageArray = new Array;
+    var file1 = document.getElementById('file1')
+    var download = document.getElementById('download')
+    var generate = (cropedImage) => {
+        mergeImages([
+            // { src: imageArray[0], x: 120, y: 90 },
+            { src: cropedImage, x: 120, y: 90 },
+            { src: '1635082333865.png', x: 0, y: 0 },
+
+        ], {
+
+            width: 1086,
+            height: 1086,
+        })
+            .then(b64 => {
+                document.getElementById('frame').src = b64;
+                download.addEventListener('click', function () {
+                    download.href = b64;
+                    download.download = "PayasamChallenge.png";
+                }, false);
+
+            }
+            );
+    }
+
+
+
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/cropper/2.3.3/cropper.js"></script>
+<script>
+    var canvas = $("#canvas"),
+        context = canvas.get(0).getContext("2d"),
+        frame = $('#frame')
+
+
+    $('#file1').on('change', function () {
+        if (this.files && this.files[0]) {
+            if (this.files[0].type.match(/^image\//)) {
+                frame.hide();
+                $('#clickhere').hide()
+                $('#btnCrop').show();
+                $('#download').hide();
+                var reader = new FileReader();
+                reader.onload = function (evt) {
+                    var img = new Image();
+                    img.onload = function () {
+                        context.canvas.height = img.height;
+                        context.canvas.width = img.width;
+                        context.drawImage(img, 0, 0);
+                        var cropper = canvas.cropper({
+                            aspectRatio: 1 / 1,
+                            zoomable: false,
+                        });
+                        $('#btnCrop').click(function () {
+                            // Get a string base 64 data url
+                            var croppedImageDataURL = canvas.cropper('getCroppedCanvas', { width: 880, height: 800 }).toDataURL("image/png");
+                            generate(croppedImageDataURL)
+                            frame.show();
+                            $('#btnCrop').hide();
+                            $('#download').show();
+                            $('#hidable').hide();
+
+                        });
+                        $('#btnRestore').click(function () {
+                            canvas.cropper('reset');
+                            frame.show();
+                            $('#btnCrop').show();
+                            $('#download').hide();
+
+
+                        });
+                    };
+                    img.src = evt.target.result;
+                };
+                reader.readAsDataURL(this.files[0]);
+            }
+            else {
+                alert("Invalid file type! Please select an image file.");
+            }
+        }
+        else {
+            alert('No file(s) selected.');
+        }
+    });
+</script>
+
+</html>
