@@ -24,7 +24,7 @@
             <div class="inner">
                 <!-- <h3 class="masthead-brand">Abhayam</h3> -->
                 <nav class="nav nav-masthead justify-content-center">
-                    <p>MEGA BLOOD DONATION 9</p>
+                    <p>MEGA BLOOD DONATION 10</p>
                 </nav>
             </div>
         </header>
@@ -121,12 +121,12 @@
                         context.canvas.width = img.width;
                         context.drawImage(img, 0, 0);
                         var cropper = canvas.cropper({
-                            aspectRatio: 1.34 / 1,
+                            aspectRatio: 1.33 / 1,
                             zoomable: false,
                         });
                         $('#btnCrop').click(function () {
                             // Get a string base 64 data url
-                            var croppedImageDataURL = canvas.cropper('getCroppedCanvas', { width: 1300, height: 1130 }).toDataURL("image/png");
+                            var croppedImageDataURL = canvas.cropper('getCroppedCanvas', { width: 1280, height: 1130 }).toDataURL("image/png");
                             generate(croppedImageDataURL,fileName)
                             frame.show();
                             $('#btnCrop').hide();
