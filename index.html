@@ -9,13 +9,14 @@
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <style>
         body {
-            background: #ffcc0f;
+            background: rgb(34,193,195);
+            background: linear-gradient(344deg, rgba(34,193,195,1) 0%, rgba(253,187,45,1) 100%);
         }
     </style>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.css">
-    <title>merge</title>
+    <title>The Frame</title>
 </head>
 
 <body class="text-center">
@@ -24,13 +25,12 @@
             <div class="inner">
                 <!-- <h3 class="masthead-brand">Abhayam</h3> -->
                 <nav class="nav nav-masthead justify-content-center">
-                    <p>MEGA BLOOD DONATION 14</p>
+                    <p>MEGA BLOOD DONATION CAMPAIGN</p>
                 </nav>
             </div>
         </header>
 
         <main role="main" class="inner cover row justify-content-center">
-            <h4 class="cover-heading">Frame Your profile.</h4>
 
             <div style="position: relative;">
                 <p id="clickhere"
@@ -58,7 +58,7 @@
         </div>
         <footer class="mastfoot mt-auto">
             <div class="inner">
-                <p>caption</p>
+                <p>Give Blood Give Life</p>
             </div>
         </footer>
     </div>
@@ -75,7 +75,7 @@
     var generate = (cropedImage,originalImageName) => {
         mergeImages([
             // { src: imageArray[0], x: 120, y: 90 },
-            { src: cropedImage, x: 160, y: 100 },
+            { src: cropedImage, x: 160, y: 110 },
             { src: 'IMG_0647.png', x: 0, y: 0 },
 
         ], {
@@ -126,7 +126,7 @@
                         });
                         $('#btnCrop').click(function () {
                             // Get a string base 64 data url
-                            var croppedImageDataURL = canvas.cropper('getCroppedCanvas', { width: 1280, height: 800 }).toDataURL("image/png");
+                            var croppedImageDataURL = canvas.cropper('getCroppedCanvas', { width: 1280, height: 1000 }).toDataURL("image/png");
                             generate(croppedImageDataURL,fileName)
                             frame.show();
                             $('#btnCrop').hide();
