@@ -111,16 +111,16 @@
             style="display: none"
             placeholder="Optional file name"
           />
-          <a class="btn btn-lg btn-success" id="download" style="display: none"
+          <a class="btn btn-lg btn-success mt-3" id="download" style="display: none"
             >Download</a
           >
-          <!-- <button
-            class="btn btn-lg btn-info"
+          <button
+            class="btn btn-lg btn-warning mt-3"
             id="btnReset"
             style="display: none"
           >
             Reset
-          </button> -->
+          </button>
         </p>
       </main>
       <div></div>
@@ -154,10 +154,10 @@
         }
       ).then((b64) => {
         document.getElementById("frame").src = b64;
-        fileName = $("#filenameinput").val().trim();
         download.addEventListener(
-          "click",
-          function () {
+            "click",
+            function () {
+            fileName = $("#filenameinput").val().trim();
             download.href = b64;
             download.download = fileName
               ? fileName + "_framed.png"
@@ -205,13 +205,11 @@
                 $("#hidable").hide();
                 $("#download").show();
                 $("#filenameinput").show();
-                // $("#btnReset").show();
+                $("#btnReset").show();
               });
-            //   $("#btnReset").click(function () {
-            //     canvas.cropper("reset");
-            //     frame.show();
-            //     $("#download").hide();
-            //   });
+              $("#btnReset").click(function () {
+                location.reload();
+              });
             };
             img.src = evt.target.result;
           };
