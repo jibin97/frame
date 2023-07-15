@@ -37,7 +37,7 @@
                     style=" position: absolute;top: 50%;left: 50%;transform: translate(-50%, -50%);z-index: -1;">
                     click here
                 </p>
-                <img id="frame" alt="frame" src="1635082333865.png" height="350" width="350"
+                <img id="frame" alt="frame" src="IMG_0647.png" height="350" width="350"
                     onclick="document.getElementById('file1').click()" style="max-width: 350px;max-height: 350px;">
             </div>
             <input type="file" accept="image/*" name="file1" id="file1" style="display: none;">
@@ -72,22 +72,22 @@
     var imageArray = new Array;
     var file1 = document.getElementById('file1')
     var download = document.getElementById('download')
-    var generate = (cropedImage) => {
+    var generate = (cropedImage,originalImageName) => {
         mergeImages([
             // { src: imageArray[0], x: 120, y: 90 },
             { src: cropedImage, x: 120, y: 90 },
-            { src: '1635082333865.png', x: 0, y: 0 },
+            { src: 'IMG_0647.png', x: 0, y: 0 },
 
         ], {
 
-            width: 1086,
-            height: 1086,
+            width: 1600,
+            height: 1600,
         })
             .then(b64 => {
                 document.getElementById('frame').src = b64;
                 download.addEventListener('click', function () {
                     download.href = b64;
-                    download.download = "PayasamChallenge.png";
+                    download.download = originalImageName+"_framed.png";
                 }, false);
 
             }
@@ -108,6 +108,7 @@
     $('#file1').on('change', function () {
         if (this.files && this.files[0]) {
             if (this.files[0].type.match(/^image\//)) {
+                var fileName = this.files[0].name;
                 frame.hide();
                 $('#clickhere').hide()
                 $('#btnCrop').show();
@@ -126,7 +127,7 @@
                         $('#btnCrop').click(function () {
                             // Get a string base 64 data url
                             var croppedImageDataURL = canvas.cropper('getCroppedCanvas', { width: 880, height: 800 }).toDataURL("image/png");
-                            generate(croppedImageDataURL)
+                            generate(croppedImageDataURL,fileName)
                             frame.show();
                             $('#btnCrop').hide();
                             $('#download').show();
