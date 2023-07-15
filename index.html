@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" style=" height: 100%;">
 
 <head>
     <meta charset="UTF-8">
@@ -9,8 +9,8 @@
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <style>
         body {
-            background: rgb(34,193,195);
             background: linear-gradient(344deg, rgba(34,193,195,1) 0%, rgba(253,187,45,1) 100%);
+            background-repeat: no-repeat;
         }
     </style>
 
@@ -75,7 +75,7 @@
     var generate = (cropedImage,originalImageName) => {
         mergeImages([
             // { src: imageArray[0], x: 120, y: 90 },
-            { src: cropedImage, x: 160, y: 110 },
+            { src: cropedImage, x: 160, y: 105 },
             { src: 'IMG_0647.png', x: 0, y: 0 },
 
         ], {
