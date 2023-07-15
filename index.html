@@ -1,160 +1,227 @@
 <!DOCTYPE html>
-<html lang="en" style=" height: 100%;">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+<html lang="en" style="height: 100%">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
     <style>
-        body {
-            background: linear-gradient(344deg, rgba(34,193,195,1) 0%, rgba(253,187,45,1) 100%);
-            background-repeat: no-repeat;
-        }
+      body {
+        background: linear-gradient(
+          344deg,
+          rgba(34, 193, 195, 1) 0%,
+          rgba(253, 187, 45, 1) 100%
+        );
+        background-repeat: no-repeat;
+      }
+      .input-box {
+        padding: 10px;
+        font-size: 16px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        outline: none;
+        width: 300px;
+      }
+
+      /* Hover and focus styles */
+      .input-box:hover,
+      .input-box:focus {
+        border-color: #6c63ff;
+      }
+
+      /* Placeholder text style */
+      .input-box::placeholder {
+        color: #999;
+      }
     </style>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.css">
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.css"
+    />
     <title>The Frame</title>
-</head>
+  </head>
 
-<body class="text-center">
+  <body class="text-center">
     <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
-        <header class="masthead mb-auto">
-            <div class="inner">
-                <!-- <h3 class="masthead-brand">Abhayam</h3> -->
-                <nav class="nav nav-masthead justify-content-center">
-                    <p>MEGA BLOOD DONATION CAMPAIGN</p>
-                </nav>
-            </div>
-        </header>
-
-        <main role="main" class="inner cover row justify-content-center">
-
-            <div style="position: relative;">
-                <p id="clickhere"
-                    style=" position: absolute;top: 50%;left: 50%;transform: translate(-50%, -50%);z-index: -1;">
-                    click here
-                </p>
-                <img id="frame" alt="frame" src="IMG_0647.png" height="350" width="350"
-                    onclick="document.getElementById('file1').click()" style="max-width: 350px;max-height: 350px;">
-            </div>
-            <input type="file" accept="image/*" name="file1" id="file1" style="display: none;">
-            <div id="hidable">
-                <canvas id="canvas" style="max-width: 350px;max-height: 350px;">
-                    Your browser does not support the HTML5 canvas element.
-                </canvas>
-            </div>
-
-            <p class="lead mt-4">
-                <button class="btn btn-lg btn-dark" id="btnGenerate" style="display: none;" >Generate</button>
-                <a class="btn btn-lg btn-success" id="download" style="display: none;">Download</a>
-                <button class="btn btn-lg btn-info" id="btnReset" style="display: none;">Reset</button>
-            </p>
-        </main>
-        <div>
-
+      <header class="masthead mb-auto">
+        <div class="inner">
+          <!-- <h3 class="masthead-brand">Abhayam</h3> -->
+          <nav class="nav nav-masthead justify-content-center">
+            <p>MEGA BLOOD DONATION CAMPAIGN</p>
+          </nav>
         </div>
-        <footer class="mastfoot mt-auto">
-            <div class="inner">
-                <p>Give Blood Give Life</p>
-            </div>
-        </footer>
+      </header>
+
+      <main role="main" class="inner cover row justify-content-center">
+        <div style="position: relative">
+          <p
+            id="clickhere"
+            style="
+              position: absolute;
+              top: 50%;
+              left: 50%;
+              transform: translate(-50%, -50%);
+              z-index: -1;
+            "
+          >
+            click here
+          </p>
+          <img
+            id="frame"
+            alt="frame"
+            src="IMG_0647.png"
+            height="350"
+            width="350"
+            onclick="document.getElementById('file1').click()"
+            style="max-width: 350px; max-height: 350px"
+          />
+        </div>
+        <input
+          type="file"
+          accept="image/*"
+          name="file1"
+          id="file1"
+          style="display: none"
+        />
+        <div id="hidable">
+          <canvas id="canvas" style="max-width: 350px; max-height: 350px">
+            Your browser does not support the HTML5 canvas element.
+          </canvas>
+        </div>
+
+        <p class="lead mt-4">
+          <button
+            class="btn btn-lg btn-dark"
+            id="btnGenerate"
+            style="display: none"
+          >
+            Generate
+          </button>
+          <input
+            type="text"
+            class="input-box"
+            id="filenameinput"
+            style="display: none"
+            placeholder="Optional file name"
+          />
+          <a class="btn btn-lg btn-success" id="download" style="display: none"
+            >Download</a
+          >
+          <!-- <button
+            class="btn btn-lg btn-info"
+            id="btnReset"
+            style="display: none"
+          >
+            Reset
+          </button> -->
+        </p>
+      </main>
+      <div></div>
+      <footer class="mastfoot mt-auto">
+        <div class="inner">
+          <p>Give Blood Give Life</p>
+        </div>
+      </footer>
     </div>
-
-</body>
-<script src="https://unpkg.com/merge-images"> </script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+  </body>
+  <script src="https://unpkg.com/merge-images"></script>
+  <script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-    crossorigin="anonymous"></script>
-<script>
-    var imageArray = new Array;
-    var file1 = document.getElementById('file1')
-    var download = document.getElementById('download')
-    var generate = (cropedImage,originalImageName) => {
-        mergeImages([
-            // { src: imageArray[0], x: 120, y: 90 },
-            { src: cropedImage, x: 158, y: 105 },
-            { src: 'IMG_0647.png', x: 0, y: 0 },
-
-        ], {
-
-            width: 1600,
-            height: 1600,
-        })
-            .then(b64 => {
-                document.getElementById('frame').src = b64;
-                download.addEventListener('click', function () {
-                    download.href = b64;
-                    download.download = originalImageName+"_framed.png";
-                }, false);
-
-            }
-            );
-    }
-
-
-
-</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/cropper/2.3.3/cropper.js"></script>
-<script>
+    crossorigin="anonymous"
+  ></script>
+  <script>
+    var imageArray = new Array();
+    var file1 = document.getElementById("file1");
+    var download = document.getElementById("download");
+    var generate = (cropedImage, originalImageName) => {
+      mergeImages(
+        [
+          // { src: imageArray[0], x: 120, y: 90 },
+          { src: cropedImage, x: 158, y: 105 },
+          { src: "IMG_0647.png", x: 0, y: 0 },
+        ],
+        {
+          width: 1600,
+          height: 1600,
+        }
+      ).then((b64) => {
+        document.getElementById("frame").src = b64;
+        fileName = $("#filenameinput").val().trim();
+        download.addEventListener(
+          "click",
+          function () {
+            download.href = b64;
+            download.download = fileName
+              ? fileName + "_framed.png"
+              : originalImageName + "_framed.png";
+          },
+          false
+        );
+      });
+    };
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/cropper/2.3.3/cropper.js"></script>
+  <script>
     var canvas = $("#canvas"),
-        context = canvas.get(0).getContext("2d"),
-        frame = $('#frame')
+      context = canvas.get(0).getContext("2d"),
+      frame = $("#frame");
 
-
-    $('#file1').on('change', function () {
-        if (this.files && this.files[0]) {
-            if (this.files[0].type.match(/^image\//)) {
-                var fileName = this.files[0].name.split('.').slice(0, -1).join('.');
-                frame.hide();
-                $('#clickhere').hide()
-                $('#btnGenerate').show();
-                $('#download').hide();
-                var reader = new FileReader();
-                reader.onload = function (evt) {
-                    var img = new Image();
-                    img.onload = function () {
-                        context.canvas.height = img.height;
-                        context.canvas.width = img.width;
-                        context.drawImage(img, 0, 0);
-                        var cropper = canvas.cropper({
-                            aspectRatio: 1.315 / 1,
-                            zoomable: false,
-                        });
-                        $('#btnGenerate').click(function () {
-                            // Get a string base 64 data url
-                            var croppedImageDataURL = canvas.cropper('getCroppedCanvas', { width: 1280, height: 1000 }).toDataURL("image/png");
-                            generate(croppedImageDataURL,fileName)
-                            frame.show();
-                            $('#btnGenerate').hide();
-                            $('#hidable').hide();
-                            $('#download').show();
-                            $('#btnReset').show();
-
-                        });
-                        $('#btnReset').click(function () {
-                            canvas.cropper('reset');
-                            frame.show();
-                            $('#download').hide();
-
-
-                        });
-                    };
-                    img.src = evt.target.result;
-                };
-                reader.readAsDataURL(this.files[0]);
-            }
-            else {
-                alert("Invalid file type! Please select an image file.");
-            }
+    $("#file1").on("change", function () {
+      if (this.files && this.files[0]) {
+        if (this.files[0].type.match(/^image\//)) {
+          var fileName = this.files[0].name.split(".").slice(0, -1).join(".");
+          frame.hide();
+          $("#clickhere").hide();
+          $("#btnGenerate").show();
+          $("#download").hide();
+          var reader = new FileReader();
+          reader.onload = function (evt) {
+            var img = new Image();
+            img.onload = function () {
+              context.canvas.height = img.height;
+              context.canvas.width = img.width;
+              context.drawImage(img, 0, 0);
+              var cropper = canvas.cropper({
+                aspectRatio: 1.315 / 1,
+                zoomable: false,
+              });
+              $("#btnGenerate").click(function () {
+                // Get a string base 64 data url
+                var croppedImageDataURL = canvas
+                  .cropper("getCroppedCanvas", { width: 1280, height: 1000 })
+                  .toDataURL("image/png");
+                generate(croppedImageDataURL, fileName);
+                frame.show();
+                $("#btnGenerate").hide();
+                $("#hidable").hide();
+                $("#download").show();
+                $("#filenameinput").show();
+                // $("#btnReset").show();
+              });
+            //   $("#btnReset").click(function () {
+            //     canvas.cropper("reset");
+            //     frame.show();
+            //     $("#download").hide();
+            //   });
+            };
+            img.src = evt.target.result;
+          };
+          reader.readAsDataURL(this.files[0]);
+        } else {
+          alert("Invalid file type! Please select an image file.");
         }
-        else {
-            alert('No file(s) selected.');
-        }
+      } else {
+        alert("No file(s) selected.");
+      }
     });
-</script>
-
+  </script>
 </html>
