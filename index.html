@@ -48,9 +48,9 @@
             </div>
 
             <p class="lead mt-4">
-                <button class="btn btn-lg btn-dark" id="btnCrop">Generate</button>
+                <button class="btn btn-lg btn-dark" id="btnGenerate" style="display: none;" >Generate</button>
                 <a class="btn btn-lg btn-success" id="download" style="display: none;">Download</a>
-                <!-- <button class="btn btn-lg btn-info" id="btnRestore">Reset</button> -->
+                <button class="btn btn-lg btn-info" id="btnReset" style="display: none;">Reset</button>
             </p>
         </main>
         <div>
@@ -75,7 +75,7 @@
     var generate = (cropedImage,originalImageName) => {
         mergeImages([
             // { src: imageArray[0], x: 120, y: 90 },
-            { src: cropedImage, x: 160, y: 105 },
+            { src: cropedImage, x: 158, y: 105 },
             { src: 'IMG_0647.png', x: 0, y: 0 },
 
         ], {
@@ -108,10 +108,10 @@
     $('#file1').on('change', function () {
         if (this.files && this.files[0]) {
             if (this.files[0].type.match(/^image\//)) {
-                var fileName = this.files[0].name;
+                var fileName = this.files[0].name.split('.').slice(0, -1).join('.');
                 frame.hide();
                 $('#clickhere').hide()
-                $('#btnCrop').show();
+                $('#btnGenerate').show();
                 $('#download').hide();
                 var reader = new FileReader();
                 reader.onload = function (evt) {
@@ -124,20 +124,20 @@
                             aspectRatio: 1.315 / 1,
                             zoomable: false,
                         });
-                        $('#btnCrop').click(function () {
+                        $('#btnGenerate').click(function () {
                             // Get a string base 64 data url
                             var croppedImageDataURL = canvas.cropper('getCroppedCanvas', { width: 1280, height: 1000 }).toDataURL("image/png");
                             generate(croppedImageDataURL,fileName)
                             frame.show();
-                            $('#btnCrop').hide();
-                            $('#download').show();
+                            $('#btnGenerate').hide();
                             $('#hidable').hide();
+                            $('#download').show();
+                            $('#btnReset').show();
 
                         });
-                        $('#btnRestore').click(function () {
+                        $('#btnReset').click(function () {
                             canvas.cropper('reset');
                             frame.show();
-                            $('#btnCrop').show();
                             $('#download').hide();
 
 
