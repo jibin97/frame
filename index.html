@@ -126,7 +126,7 @@
                         });
                         $('#btnCrop').click(function () {
                             // Get a string base 64 data url
-                            var croppedImageDataURL = canvas.cropper('getCroppedCanvas', { width: 1300, height: 1130 }).toDataURL("image/png");
+                            var croppedImageDataURL = canvas.cropper('getCroppedCanvas', { width: 1280, height: 1130 }).toDataURL("image/png");
                             generate(croppedImageDataURL,fileName)
                             frame.show();
                             $('#btnCrop').hide();
